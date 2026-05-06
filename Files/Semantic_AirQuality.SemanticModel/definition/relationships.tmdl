@@ -1,0 +1,40 @@
+relationship 9d8db457-2a43-4361-b9d7-105b32f83ec8
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_Location.EventProcessedUtcTime
+	toColumn: LocalDateTable_d3830176-8464-4f87-91b5-14d3c88f43f8.Date
+
+relationship 134ba6e8-3347-44c2-a351-390329bf20d4
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_Location.EventEnqueuedUtcTime
+	toColumn: LocalDateTable_f7e87077-4e2c-4eac-8912-fd25d062d14b.Date
+
+relationship 31f6abd7-6f09-436a-8940-e65d5be707bb
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_pollutant.EventProcessedUtcTime
+	toColumn: LocalDateTable_67692979-198b-4c68-89c8-fbe13d4b1d69.Date
+
+relationship de5fa771-f529-40ee-84b3-4363b3ba3b02
+	joinOnDateBehavior: datePartOnly
+	fromColumn: dim_pollutant.EventEnqueuedUtcTime
+	toColumn: LocalDateTable_72a2216f-cc79-46bf-ba3a-133b0120c473.Date
+
+relationship AutoDetected_f82a909f-4eed-47aa-ad1a-8e03e8519d31
+	crossFilteringBehavior: bothDirections
+	fromColumn: FactSensor_calc.sensor_id
+	toColumn: dim_Location.sensor_id
+
+relationship d5e6c175-2119-46bf-a790-76fce9278839
+	joinOnDateBehavior: datePartOnly
+	fromColumn: DateTable.Date
+	toColumn: LocalDateTable_45d6ea11-5626-4828-9389-9b0bc2162e1c.Date
+
+relationship f46232ac-0315-35e6-3e2c-685807ae7ef2
+	fromColumn: FactSensor_calc.event_date
+	toColumn: DateTable.Date
+
+relationship fcf2fa7d-6372-bb9e-79a7-09ae74fd0439
+	crossFilteringBehavior: bothDirections
+	toCardinality: many
+	fromColumn: FactSensor_calc.pollutant_name
+	toColumn: dim_pollutant.parameter_name
+

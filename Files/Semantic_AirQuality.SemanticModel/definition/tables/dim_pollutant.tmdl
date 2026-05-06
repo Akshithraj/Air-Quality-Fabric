@@ -1,0 +1,100 @@
+table dim_pollutant
+	lineageTag: a7ba43fc-1aa9-40ab-b944-46e50b47642e
+
+	column parameter_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9ee58778-03ff-45ff-a6c9-6837404feba9
+		summarizeBy: sum
+		sourceColumn: parameter_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column parameter_name
+		dataType: string
+		lineageTag: 6f028394-ca0d-4aca-9a33-999075a2c30b
+		summarizeBy: none
+		sourceColumn: parameter_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column display_name
+		dataType: string
+		lineageTag: 03533327-b6df-4aeb-894c-da4b89a82699
+		summarizeBy: none
+		sourceColumn: display_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column units
+		dataType: string
+		lineageTag: e1daeaef-060b-4cdb-82ae-4debc5b29abd
+		summarizeBy: none
+		sourceColumn: units
+
+		annotation SummarizationSetBy = Automatic
+
+	column description
+		dataType: string
+		lineageTag: bfc6c399-ea00-4b6f-a6f3-2e736cc84a67
+		summarizeBy: none
+		sourceColumn: description
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: eff9c78f-5143-4177-8e68-0bd5e1b065f4
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column EventProcessedUtcTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 85840a73-b040-48c2-9d56-b04f80c800a5
+		summarizeBy: none
+		sourceColumn: EventProcessedUtcTime
+
+		variation Variation
+			isDefault
+			relationship: 31f6abd7-6f09-436a-8940-e65d5be707bb
+			defaultHierarchy: LocalDateTable_67692979-198b-4c68-89c8-fbe13d4b1d69.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column PartitionId
+		dataType: int64
+		formatString: 0
+		lineageTag: 399c32eb-8812-494b-8eb6-1e1fd1b6ff65
+		summarizeBy: count
+		sourceColumn: PartitionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EventEnqueuedUtcTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: b6905822-0789-4a13-aa11-6326e8cefb21
+		summarizeBy: none
+		sourceColumn: EventEnqueuedUtcTime
+
+		variation Variation
+			isDefault
+			relationship: de5fa771-f529-40ee-84b3-4363b3ba3b02
+			defaultHierarchy: LocalDateTable_72a2216f-cc79-46bf-ba3a-133b0120c473.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_pollutant = m
+		mode: import
+		source =
+				let
+				  Source = AzureDataExplorer.KqlDatabase("https://trd-vtmctcu74s0exsxjmz.z2.kusto.fabric.microsoft.com", "openAQ_EH", null, [MaxRows = null, MaxSize = null, NoTruncate = null, AdditionalSetStatements = null]),
+				  #"Navigation 1" = Source{[Name = "dim_pollutant"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+

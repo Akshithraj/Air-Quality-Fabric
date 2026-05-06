@@ -1,0 +1,84 @@
+{
+  "config": "{\"version\":\"5.72\",\"themeCollection\":{\"baseTheme\":{\"name\":\"CY26SU04\",\"type\":2,\"version\":{\"visual\":\"2.8.0\",\"report\":\"3.2.0\",\"page\":\"2.3.1\"}}},\"activeSectionIndex\":1,\"defaultDrillFilterOtherVisuals\":true,\"linguisticSchemaSyncVersion\":0,\"settings\":{\"useNewFilterPaneExperience\":true,\"allowChangeFilterTypes\":true,\"useStylableVisualContainerHeader\":true,\"queryLimitOption\":6,\"useEnhancedTooltips\":true,\"exportDataMode\":1,\"useDefaultAggregateDisplayName\":true},\"objects\":{\"section\":[{\"properties\":{\"verticalAlignment\":{\"expr\":{\"Literal\":{\"Value\":\"'Top'\"}}}}}]}}",
+  "layoutOptimization": 0,
+  "publicCustomVisuals": [
+    "MapBySquillion"
+  ],
+  "resourcePackages": [
+    {
+      "resourcePackage": {
+        "disabled": false,
+        "items": [
+          {
+            "name": "CY26SU04",
+            "path": "BaseThemes/CY26SU04.json",
+            "type": 202
+          }
+        ],
+        "name": "SharedResources",
+        "type": 2
+      }
+    }
+  ],
+  "sections": [
+    {
+      "config": "{}",
+      "displayName": "Page 2",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "33eec0385daab1c3c196",
+      "ordinal": 1,
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"b85345b3d21e2b4b4c2c\",\"layouts\":[{\"id\":0,\"position\":{\"x\":1081.2795472583596,\"y\":301.06214845232756,\"z\":1,\"width\":180.91997653473203,\"height\":418.37744573656784,\"tabOrder\":1}}],\"singleVisual\":{\"visualType\":\"slicer\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_Location.parameter\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_Location\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"parameter\"},\"Name\":\"dim_Location.parameter\",\"NativeReferenceName\":\"parameter\"}]},\"drillFilterOtherVisuals\":true,\"objects\":{\"data\":[{\"properties\":{\"mode\":{\"expr\":{\"Literal\":{\"Value\":\"'Basic'\"}}}}}],\"general\":[{\"properties\":{\"filter\":{\"filter\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_Location\",\"Type\":0}],\"Where\":[{\"Condition\":{\"In\":{\"Expressions\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"parameter\"}}],\"Values\":[[{\"Literal\":{\"Value\":\"'nox'\"}}]]}}}]}}}}]}}}",
+          "filters": "[]",
+          "height": 418.38,
+          "width": 180.92,
+          "x": 1081.28,
+          "y": 301.06,
+          "z": 1.00
+        },
+        {
+          "config": "{\"name\":\"d4aac3511464e5007b39\",\"layouts\":[{\"id\":0,\"position\":{\"x\":9.89406121674316,\"y\":0,\"z\":0,\"width\":1057.2511128748404,\"height\":719.4395941888954,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"MapBySquillion\",\"projections\":{\"latitude\":[{\"queryRef\":\"dim_Location.latitude\"}],\"longitude\":[{\"queryRef\":\"dim_Location.longitude\"}],\"value\":[{\"queryRef\":\"Sum(FactSensor_calc.value)\"}],\"category\":[{\"queryRef\":\"dim_Location.parameter\",\"active\":true}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactSensor_calc\",\"Type\":0},{\"Name\":\"d\",\"Entity\":\"dim_Location\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"latitude\"},\"Name\":\"dim_Location.latitude\",\"NativeReferenceName\":\"latitude\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"longitude\"},\"Name\":\"dim_Location.longitude\",\"NativeReferenceName\":\"longitude\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"value\"}},\"Function\":0},\"Name\":\"Sum(FactSensor_calc.value)\",\"NativeReferenceName\":\"Sum of value\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"parameter\"},\"Name\":\"dim_Location.parameter\",\"NativeReferenceName\":\"parameter\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"value\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"filterSortOrder\":3,\"hasDefaultSort\":true}}",
+          "filters": "[{\"name\":\"afc573f0d300dc4a342a\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_Location\"}},\"Property\":\"latitude\"}},\"type\":\"Advanced\",\"howCreated\":0,\"isHiddenInViewMode\":false,\"ordinal\":0},{\"name\":\"b6597bcf10b9be29040b\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_Location\"}},\"Property\":\"latitude\"}},\"type\":\"Advanced\",\"howCreated\":1,\"ordinal\":1},{\"name\":\"5e82baac9d071bc24420\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_Location\"}},\"Property\":\"longitude\"}},\"type\":\"Advanced\",\"howCreated\":0,\"isHiddenInViewMode\":false,\"ordinal\":2},{\"name\":\"f720b9dc079b67c7420a\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_Location\"}},\"Property\":\"longitude\"}},\"type\":\"Advanced\",\"howCreated\":1,\"ordinal\":3},{\"name\":\"f6b91ea895e00a1b6a50\",\"expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"dim_Location\"}},\"Property\":\"parameter\"}},\"type\":\"Categorical\",\"howCreated\":0,\"isHiddenInViewMode\":false,\"ordinal\":4},{\"name\":\"7ed605860b1842d4cd28\",\"expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Entity\":\"FactSensor_calc\"}},\"Property\":\"value\"}},\"Function\":0}},\"type\":\"Advanced\",\"howCreated\":0,\"isHiddenInViewMode\":false,\"ordinal\":5}]",
+          "height": 719.44,
+          "width": 1057.25,
+          "x": 9.89,
+          "y": 0.00,
+          "z": 0.00
+        }
+      ],
+      "width": 1280.00
+    },
+    {
+      "config": "{}",
+      "displayName": "Page 1",
+      "displayOption": 1,
+      "filters": "[]",
+      "height": 720.00,
+      "name": "9a115d2d85a759497d80",
+      "visualContainers": [
+        {
+          "config": "{\"name\":\"3f95b51ab61150602274\",\"layouts\":[{\"id\":0,\"position\":{\"x\":0,\"y\":26.855309016874287,\"z\":0,\"width\":654.421477621726,\"height\":357.5996411194313,\"tabOrder\":0}}],\"singleVisual\":{\"visualType\":\"tableEx\",\"projections\":{\"Values\":[{\"queryRef\":\"dim_Location.location_name\"},{\"queryRef\":\"dim_Location.country\"},{\"queryRef\":\"dim_Location.units\"},{\"queryRef\":\"Sum(FactSensor_calc.value)\"},{\"queryRef\":\"Sum(FactSensor_calc.DailyChange)\"},{\"queryRef\":\"Sum(FactSensor_calc.MovingAverage7Day)\"},{\"queryRef\":\"FactSensor_calc.pollutant_name\"},{\"queryRef\":\"DateTable.Date.Variation.Date Hierarchy.Day\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"d\",\"Entity\":\"dim_Location\",\"Type\":0},{\"Name\":\"f\",\"Entity\":\"FactSensor_calc\",\"Type\":0},{\"Name\":\"d1\",\"Entity\":\"DateTable\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"location_name\"},\"Name\":\"dim_Location.location_name\",\"NativeReferenceName\":\"location_name\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"country\"},\"Name\":\"dim_Location.country\",\"NativeReferenceName\":\"country\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d\"}},\"Property\":\"units\"},\"Name\":\"dim_Location.units\",\"NativeReferenceName\":\"units\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"value\"},\"Name\":\"Sum(FactSensor_calc.value)\",\"NativeReferenceName\":\"value\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"DailyChange\"},\"Name\":\"Sum(FactSensor_calc.DailyChange)\",\"NativeReferenceName\":\"DailyChange\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"MovingAverage7Day\"},\"Name\":\"Sum(FactSensor_calc.MovingAverage7Day)\",\"NativeReferenceName\":\"MovingAverage7Day\"},{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"pollutant_name\"},\"Name\":\"FactSensor_calc.pollutant_name\",\"NativeReferenceName\":\"pollutant_name\"},{\"HierarchyLevel\":{\"Expression\":{\"Hierarchy\":{\"Expression\":{\"PropertyVariationSource\":{\"Expression\":{\"SourceRef\":{\"Source\":\"d1\"}},\"Name\":\"Variation\",\"Property\":\"Date\"}},\"Hierarchy\":\"Date Hierarchy\"}},\"Level\":\"Day\"},\"Name\":\"DateTable.Date.Variation.Date Hierarchy.Day\",\"NativeReferenceName\":\"Date Day\"}],\"OrderBy\":[{\"Direction\":1,\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"MovingAverage7Day\"}}}]},\"drillFilterOtherVisuals\":true}}",
+          "filters": "[]",
+          "height": 357.60,
+          "width": 654.42,
+          "x": 0.00,
+          "y": 26.86,
+          "z": 0.00
+        },
+        {
+          "config": "{\"name\":\"b472f448ac881e56147e\",\"layouts\":[{\"id\":0,\"position\":{\"x\":16.96124780013113,\"y\":407.0699472031471,\"z\":1000,\"width\":476.3283757203492,\"height\":284.1009006521964,\"tabOrder\":1000}}],\"singleVisual\":{\"visualType\":\"columnChart\",\"projections\":{\"Category\":[{\"queryRef\":\"FactSensor_calc.pollutant_name\",\"active\":true}],\"Y\":[{\"queryRef\":\"Sum(FactSensor_calc.value)\"}]},\"prototypeQuery\":{\"Version\":2,\"From\":[{\"Name\":\"f\",\"Entity\":\"FactSensor_calc\",\"Type\":0}],\"Select\":[{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"pollutant_name\"},\"Name\":\"FactSensor_calc.pollutant_name\",\"NativeReferenceName\":\"pollutant_name\"},{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"value\"}},\"Function\":0},\"Name\":\"Sum(FactSensor_calc.value)\",\"NativeReferenceName\":\"Sum of value\"}],\"OrderBy\":[{\"Direction\":2,\"Expression\":{\"Aggregation\":{\"Expression\":{\"Column\":{\"Expression\":{\"SourceRef\":{\"Source\":\"f\"}},\"Property\":\"value\"}},\"Function\":0}}}]},\"drillFilterOtherVisuals\":true,\"hasDefaultSort\":true}}",
+          "filters": "[]",
+          "height": 284.10,
+          "width": 476.33,
+          "x": 16.96,
+          "y": 407.07,
+          "z": 1000.00
+        }
+      ],
+      "width": 1280.00
+    }
+  ]
+}

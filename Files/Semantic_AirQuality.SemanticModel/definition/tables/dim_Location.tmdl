@@ -1,0 +1,145 @@
+table dim_Location
+	lineageTag: 8c0e2829-56ac-4e5b-9d6b-2d942c832598
+
+	column location_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 5c97c727-9634-4ac5-9432-63ae9d7639f0
+		summarizeBy: sum
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_name
+		dataType: string
+		lineageTag: db7c310f-6cce-4c0e-94a7-a3d7aa2af152
+		summarizeBy: none
+		sourceColumn: location_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column country
+		dataType: string
+		lineageTag: b6b555f8-eb7e-4c4a-9dd4-64c834e1a50f
+		summarizeBy: none
+		sourceColumn: country
+
+		annotation SummarizationSetBy = Automatic
+
+	column latitude
+		dataType: double
+		lineageTag: a48233c3-3917-4ec6-8d71-a21a5724a5db
+		summarizeBy: sum
+		sourceColumn: latitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column longitude
+		dataType: double
+		lineageTag: 94769bcc-0768-40df-b616-e83a43a68fbd
+		summarizeBy: sum
+		sourceColumn: longitude
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column timezone
+		dataType: string
+		lineageTag: 03ee7cbe-f96f-4a64-9979-6273cdebc706
+		summarizeBy: none
+		sourceColumn: timezone
+
+		annotation SummarizationSetBy = Automatic
+
+	column type
+		dataType: string
+		lineageTag: e6263d16-4056-4cd6-85ad-a6c90bbf0158
+		summarizeBy: none
+		sourceColumn: type
+
+		annotation SummarizationSetBy = Automatic
+
+	column sensor_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9f79af88-865d-4743-a6a4-09787da3058e
+		summarizeBy: none
+		sourceColumn: sensor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column parameter
+		dataType: string
+		lineageTag: 5a1c828f-3407-45da-ab39-11e5aa715cd5
+		summarizeBy: none
+		sourceColumn: parameter
+
+		annotation SummarizationSetBy = Automatic
+
+	column units
+		dataType: string
+		lineageTag: f5500c96-ad6a-4bf9-86a1-f7a37b86bea2
+		summarizeBy: none
+		sourceColumn: units
+
+		annotation SummarizationSetBy = Automatic
+
+	column display_name
+		dataType: string
+		lineageTag: 2a8e2dd7-4911-4085-b081-33c6cdadb402
+		summarizeBy: none
+		sourceColumn: display_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column EventProcessedUtcTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 6adb1e8b-52e9-4942-9ce0-5379338bd069
+		summarizeBy: none
+		sourceColumn: EventProcessedUtcTime
+
+		variation Variation
+			isDefault
+			relationship: 9d8db457-2a43-4361-b9d7-105b32f83ec8
+			defaultHierarchy: LocalDateTable_d3830176-8464-4f87-91b5-14d3c88f43f8.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	column PartitionId
+		dataType: int64
+		formatString: 0
+		lineageTag: 7641347b-50ee-4461-a769-0bd74d117367
+		summarizeBy: count
+		sourceColumn: PartitionId
+
+		annotation SummarizationSetBy = Automatic
+
+	column EventEnqueuedUtcTime
+		dataType: dateTime
+		formatString: General Date
+		lineageTag: 432cad7a-06d8-47d2-bcb4-1814d2489a61
+		summarizeBy: none
+		sourceColumn: EventEnqueuedUtcTime
+
+		variation Variation
+			isDefault
+			relationship: 134ba6e8-3347-44c2-a351-390329bf20d4
+			defaultHierarchy: LocalDateTable_f7e87077-4e2c-4eac-8912-fd25d062d14b.'Date Hierarchy'
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_Location = m
+		mode: import
+		source =
+				let
+				  Source = AzureDataExplorer.KqlDatabase("https://trd-vtmctcu74s0exsxjmz.z2.kusto.fabric.microsoft.com", "openAQ_EH", null, [MaxRows = null, MaxSize = null, NoTruncate = null, AdditionalSetStatements = null]),
+				  #"Navigation 1" = Source{[Name = "dim_Location"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+
