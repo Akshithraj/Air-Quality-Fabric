@@ -1,0 +1,10 @@
+// KQL script
+// Use management commands in this script to configure your database items, such as tables, functions, materialized views, and more.
+
+
+.create-merge table Sensordata (sensor_id:long, location_id:long, timestamp_utc:string, value:real, lat:real, lon:real) 
+.create-merge table dim_Location (location_id:long, location_name:string, country:string, latitude:real, longitude:real, timezone:string, type:string, sensor_id:long, parameter:string, units:string, display_name:string, EventProcessedUtcTime:datetime, PartitionId:long, EventEnqueuedUtcTime:datetime) 
+.create-merge table dim_pollutant (parameter_id:long, parameter_name:string, display_name:string, units:string, description:string, type:string, EventProcessedUtcTime:datetime, PartitionId:long, EventEnqueuedUtcTime:datetime) 
+.create-merge table Sensordata_silver (timestamp:datetime, hour_of_day:long, day_of_month:string, month:string, location_id:long, location_name:string, sensor_id:long, pollutant_name:string, value:real, preferred_unit:string, pollution_category:string, lat:real, lon:real) 
+.create-merge table FactSensor_calc (event_date:string, sensor_id:int, location_id:int, pollutant_name:string, value:real, PreviousValue:real, DailyChange:real, MovingAverage7Day:real, lat:real, lon:real) 
+.create-merge table Fact_sensorLoadDaily (event_date:datetime, location_id:int, location_name:string, sensor_id:int, pollutant_name:string, value:real, preferred_unit:string, lat:real, lon:real) 
