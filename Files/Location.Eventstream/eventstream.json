@@ -1,0 +1,58 @@
+{
+  "sources": [
+    {
+      "id": "75acad62-4d60-47d1-8353-7e913cea0b0d",
+      "name": "Location-endpoint",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "9a52a8fd-f520-4dcd-8a0d-77321c36fd3c",
+      "name": "Eventhouse",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "a54c4e68-0fc9-8385-4a54-ee3b10135b30",
+        "databaseName": "openAQ_EH",
+        "tableName": "dim_Location",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "Location-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "Location-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "073d0f46-9e52-4c58-b3f4-4ee3cc650d6e",
+      "name": "Location-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "Location-endpoint"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}

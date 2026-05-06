@@ -1,0 +1,58 @@
+{
+  "sources": [
+    {
+      "id": "c299ceb1-ec24-4d3f-be69-828270e2f0b1",
+      "name": "Pollutant_endpoint",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "0b98bb95-0014-48e5-8905-867518a56773",
+      "name": "Eventhouse",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "a54c4e68-0fc9-8385-4a54-ee3b10135b30",
+        "databaseName": "openAQ_EH",
+        "tableName": "dim_pollutant",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "Pollutant_ES-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "Pollutant_ES-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "b59ff85b-d519-4cbf-bd4e-26ca0ca08c73",
+      "name": "Pollutant_ES-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "Pollutant_endpoint"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}
