@@ -1,0 +1,58 @@
+{
+  "sources": [
+    {
+      "id": "8251e5a1-7c8e-49de-9512-1ac55c5891c1",
+      "name": "Country",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "fcb54c5c-6c33-433a-8cf1-7edd285f1ac7",
+      "name": "Eventhouse",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "a54c4e68-0fc9-8385-4a54-ee3b10135b30",
+        "databaseName": "openAQ_EH",
+        "tableName": "Country",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "India-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "India-stream",
+          "schema": {
+            "columns": []
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "78753fb0-6af6-4915-a6aa-99f149651ac6",
+      "name": "India-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "Country"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}

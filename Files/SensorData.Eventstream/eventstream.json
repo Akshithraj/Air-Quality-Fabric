@@ -1,0 +1,95 @@
+{
+  "sources": [
+    {
+      "id": "4c99be6b-d202-463c-9496-473b9b446fbe",
+      "name": "openAQ-endpoint-sensordata",
+      "type": "CustomEndpoint",
+      "properties": {}
+    }
+  ],
+  "destinations": [
+    {
+      "id": "1528b281-583e-405b-bb79-730ae5f99320",
+      "name": "Eventhouse",
+      "type": "Eventhouse",
+      "properties": {
+        "dataIngestionMode": "ProcessedIngestion",
+        "workspaceId": "00000000-0000-0000-0000-000000000000",
+        "itemId": "a54c4e68-0fc9-8385-4a54-ee3b10135b30",
+        "databaseName": "openAQ_EH",
+        "tableName": "Sensordata",
+        "inputSerialization": {
+          "type": "Json",
+          "properties": {
+            "encoding": "UTF8"
+          }
+        }
+      },
+      "inputNodes": [
+        {
+          "name": "SensorData-stream"
+        }
+      ],
+      "inputSchemas": [
+        {
+          "name": "SensorData-stream",
+          "schema": {
+            "columns": [
+              {
+                "name": "sensor_id",
+                "type": "BigInt",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "location_id",
+                "type": "BigInt",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "timestamp_utc",
+                "type": "Nvarchar(max)",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "value",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "lat",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              },
+              {
+                "name": "lon",
+                "type": "Float",
+                "fields": null,
+                "items": null
+              }
+            ]
+          }
+        }
+      ]
+    }
+  ],
+  "streams": [
+    {
+      "id": "bdab42b1-223e-4068-ba4f-49c37c68cc0f",
+      "name": "SensorData-stream",
+      "type": "DefaultStream",
+      "properties": {},
+      "inputNodes": [
+        {
+          "name": "openAQ-endpoint-sensordata"
+        }
+      ]
+    }
+  ],
+  "operators": [],
+  "compatibilityLevel": "1.1"
+}

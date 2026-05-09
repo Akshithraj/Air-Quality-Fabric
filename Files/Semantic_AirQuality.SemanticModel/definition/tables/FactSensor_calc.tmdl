@@ -1,0 +1,108 @@
+table FactSensor_calc
+	lineageTag: acf135f6-a6d5-447a-a217-15871c41a742
+
+	column event_date
+		dataType: string
+		lineageTag: 8414f9c4-cb7a-46e8-924f-d91534bf4e58
+		summarizeBy: none
+		sourceColumn: event_date
+
+		annotation SummarizationSetBy = Automatic
+
+	column sensor_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 941ddd41-fa43-426d-a378-63b475c999d8
+		summarizeBy: none
+		sourceColumn: sensor_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column location_id
+		dataType: int64
+		formatString: 0
+		lineageTag: 9b2fc48d-d11e-4b41-bf99-0d896346de12
+		summarizeBy: sum
+		sourceColumn: location_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column pollutant_name
+		dataType: string
+		lineageTag: 17e914e4-489e-4c78-91e4-3f9886d042c2
+		summarizeBy: none
+		sourceColumn: pollutant_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column value
+		dataType: double
+		lineageTag: 70bb153a-9939-455a-9dab-f898db3fe5aa
+		summarizeBy: sum
+		sourceColumn: value
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column PreviousValue
+		dataType: double
+		lineageTag: 0c5aa6bd-9b72-4324-988a-d23c68c5c779
+		summarizeBy: sum
+		sourceColumn: PreviousValue
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column DailyChange
+		dataType: double
+		lineageTag: 7cfda155-2a27-4517-a2a5-e5a0eb256daf
+		summarizeBy: sum
+		sourceColumn: DailyChange
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column MovingAverage7Day
+		dataType: double
+		lineageTag: 64c355f2-037b-4e12-9ea1-32e5c16e6050
+		summarizeBy: sum
+		sourceColumn: MovingAverage7Day
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lat
+		dataType: double
+		lineageTag: 98d7e1b0-8df3-454e-9812-f81d6b047130
+		summarizeBy: sum
+		sourceColumn: lat
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column lon
+		dataType: double
+		lineageTag: e2964170-e9d8-4611-8b2f-cd039a219bed
+		summarizeBy: sum
+		sourceColumn: lon
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	partition FactSensor_calc = m
+		mode: import
+		source =
+				let
+				  Source = AzureDataExplorer.KqlDatabase("https://trd-vtmctcu74s0exsxjmz.z2.kusto.fabric.microsoft.com", "openAQ_EH", null, [MaxRows = null, MaxSize = null, NoTruncate = null, AdditionalSetStatements = null]),
+				  #"Navigation 1" = Source{[Name = "FactSensor_calc"]}[Data]
+				in
+				  #"Navigation 1"
+
+	annotation PBI_ResultType = Table
+

@@ -1,0 +1,25 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["dim_Location","dim_pollutant","FactSensor_calc"]
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_ProTooling = ["WebModelingEdit"]
+
+ref table dim_Location
+ref table DateTableTemplate_aad3b93f-9c19-446f-bd98-c95ae25e07f3
+ref table LocalDateTable_d3830176-8464-4f87-91b5-14d3c88f43f8
+ref table LocalDateTable_f7e87077-4e2c-4eac-8912-fd25d062d14b
+ref table dim_pollutant
+ref table LocalDateTable_67692979-198b-4c68-89c8-fbe13d4b1d69
+ref table LocalDateTable_72a2216f-cc79-46bf-ba3a-133b0120c473
+ref table FactSensor_calc
+ref table DateTable
+ref table LocalDateTable_45d6ea11-5626-4828-9389-9b0bc2162e1c
+

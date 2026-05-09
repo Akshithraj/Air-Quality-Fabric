@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "SemanticModel",
+    "displayName": "Semantic_AirQuality"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "18d5d1e5-cf5b-800f-44ad-11744f037959"
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "KQLDatabase",
+    "displayName": "openAQ_EH",
+    "description": "openAQ_EH"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a54c4e68-0fc9-8385-4a54-ee3b10135b30"
+  }
+}

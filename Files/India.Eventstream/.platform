@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Eventstream",
+    "displayName": "India"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "a4e19043-d11a-b624-41b7-44344c292c56"
+  }
+}

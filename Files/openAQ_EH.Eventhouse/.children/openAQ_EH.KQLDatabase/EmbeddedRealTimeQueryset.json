@@ -1,0 +1,46 @@
+{
+  "queryset": {
+    "version": "1.0.0",
+    "dataSources": [
+      {
+        "id": "91a2ce85-98af-458c-8f94-d3c29327e101",
+        "clusterUri": "https://trd-vtmctcu74s0exsxjmz.z2.kusto.fabric.microsoft.com",
+        "type": "Fabric",
+        "databaseItemId": "10135b30-ee3b-4a54-8385-0fc9a54c4e68",
+        "databaseItemName": "openAQ_EH"
+      }
+    ],
+    "tabs": [
+      {
+        "id": "ef2f1f74-0db8-485a-b228-c7abce66f026",
+        "content": "Sensordata\n| join kind=leftouter (\n    dim_Location\n    | project sensor_id, location_id, location_name, pollutant=parameter, units\n) on sensor_id\n| project timestamp_utc, sensor_id, location_id, location_name, pollutant, units, value, lat, lon\n| order by timestamp_utc desc",
+        "title": "NewData",
+        "dataSourceId": "91a2ce85-98af-458c-8f94-d3c29327e101"
+      },
+      {
+        "id": "dfc1dbfb-f723-4eb2-9c7d-cf24302acf02",
+        "content": ".set-or-append Sensordata_silver <|\nSensordata\n| where todatetime(timestamp_utc) >= startofday(now())\n| join kind=leftouter (\n    dim_Location\n    | project sensor_id, location_id, location_name, pollutant_code = parameter\n) on sensor_id\n| join kind=leftouter ( \n    dim_pollutant\n    | project pollutant_code = parameter_name, pollutant_name = display_name, preferred_unit = units\n) on pollutant_code\n// Stage 1: Convert timestamp\n| extend timestamp = todatetime(timestamp_utc)\n// Stage 2: Derive hour, day, and month\n| extend\n    hour_of_day = datetime_part(\"hour\", timestamp),\n    day_of_month = format_datetime(timestamp, 'd'),\n    month = format_datetime(timestamp, 'MM') // Full month name, e.g., \"August\"\n// Stage 3: Pollution category classification\n| extend\n    pollution_category = case(\n        pollutant_name == \"PM2.5\" and value <= 12.0, \"Good\",\n        pollutant_name == \"PM2.5\" and value <= 35.4, \"Moderate\",\n        pollutant_name == \"PM2.5\" and value <= 55.4, \"Unhealthy for Sensitive\",\n        pollutant_name == \"PM2.5\" and value <= 150.4, \"Unhealthy\",\n        pollutant_name == \"PM2.5\", \"Very Unhealthy\",\n        \"Unknown\"\n    )\n| project\n    timestamp, hour_of_day, day_of_month, month,\n    location_id, location_name, sensor_id,\n    pollutant_name, value, preferred_unit, pollution_category,\n    lat, lon\n| order by timestamp desc",
+        "title": "Silver_transformation",
+        "dataSourceId": "91a2ce85-98af-458c-8f94-d3c29327e101"
+      },
+      {
+        "id": "11bb0f23-9f06-40fd-8c6c-8e647d5878e3",
+        "content": ".create table Fact_sensorLoadDaily (\n    event_date: date,           // Partitioning field (date-only from timestamp)\n    location_id: int,           // Unique location ID from OpenAQ\n    location_name: string,      // Human-readable location\n    sensor_id: int,             // Unique sensor ID\n    pollutant_name: string,      // e.g., PM2.5, NO2, O3, etc.\n    value: real,                // Sensor reading for the day\n    preferred_unit: string,      // Unit like μg/m³ or ppm\n    lat: real,                  // Latitude of station\n    lon: real                   // Longitude of station\n)\n\n.create table FactSensor_calc (\n    event_date: string,\n    sensor_id: int,\n    location_id: int,\n    pollutant_name: string,\n    value: real,\n    PreviousValue: real,\n    DailyChange: real,\n    MovingAverage7Day: real,\n    lat: real,\n    lon: real\n)",
+        "title": "FactTable",
+        "dataSourceId": "91a2ce85-98af-458c-8f94-d3c29327e101"
+      },
+      {
+        "id": "cdf14777-8026-401c-bdc0-e55e591d150c",
+        "content": ".set-or-append Fact_sensorLoadDaily <|\nSensordata_silver\n| extend event_date = startofday(timestamp)\n| where event_date == startofday(now())\n| project\n    event_date = startofday(timestamp),\n    location_id = toint(location_id),\n    location_name,\n    sensor_id = toint(sensor_id),\n    pollutant_name,\n    value,\n    preferred_unit,\n    lat,\n    lon\n| order by event_date",
+        "title": "Fact_sensorLoadDaily",
+        "dataSourceId": "91a2ce85-98af-458c-8f94-d3c29327e101"
+      },
+      {
+        "id": "0047bd3f-b1e6-4282-8f79-eac0c8c50382",
+        "content": ".append FactSensor_calc<|\nFact_sensorLoadDaily\n| where isnotempty(trim(' ', pollutant_name))\nand event_date == format_datetime(now(), 'yyyy-MM-dd') // ✅ Only today's data\n| summarize\n    value = avg(value)\n    by event_date, sensor_id, location_id, pollutant_name, lat, lon\n| extend event_date_dt = todatetime(event_date)\n| order by sensor_id, pollutant_name, event_date_dt asc\n| serialize\n| extend PreviousValue = iif(sensor_id == prev(sensor_id) and pollutant_name == prev(pollutant_name), prev(value), real(null))\n| extend DailyChange = iif(isnotnull(PreviousValue), value - PreviousValue, real(null))\n| extend MovingAverage7Day = iif(\n    isnull(prev(value, 6)) or\n    sensor_id != prev(sensor_id,1) or sensor_id != prev(sensor_id,2) or sensor_id != prev(sensor_id,3) or\n    sensor_id != prev(sensor_id,4) or sensor_id != prev(sensor_id,5) or sensor_id != prev(sensor_id,6) or\n    pollutant_name != prev(pollutant_name,1) or pollutant_name != prev(pollutant_name,2) or pollutant_name != prev(pollutant_name,3) or\n    pollutant_name != prev(pollutant_name,4) or pollutant_name != prev(pollutant_name,5) or pollutant_name != prev(pollutant_name,6),\n    real(null),\n    round((value + prev(value, 1) + prev(value, 2) + prev(value, 3) + prev(value, 4) + prev(value, 5) + prev(value, 6)) / 7, 2)\n)\n| extend DailyChange = round(DailyChange, 2), MovingAverage7Day = round(MovingAverage7Day, 2)\n| extend event_date = format_datetime(event_date_dt, 'yyyy-MM-dd') // Normalize for consistency\n| project\n    event_date, sensor_id, location_id, pollutant_name,\n    value, PreviousValue, DailyChange, MovingAverage7Day,\n    lat, lon",
+        "title": "FactSensor_calc",
+        "dataSourceId": "91a2ce85-98af-458c-8f94-d3c29327e101"
+      }
+    ]
+  }
+}
