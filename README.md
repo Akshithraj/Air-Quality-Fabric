@@ -13,7 +13,7 @@ Technical Stack:
 ------------------------------------------------------------------
 Data Engineering Architecture (Medallion Pattern)
      1. Bronze Layer (Raw Ingestion)
-        Developed a PySpark ingestion engine to fetch real-time JSON payloads from Open AQ APIs.
+        Developed a PySpark ingestion engine to fetch real-time JSON payloads from Open AQ        APIs.
         Utilised Fabric Eventstream as a high-throughput gateway, leveraging the Kafka protocol to flush data into a KQL Database with near-zero latency.
      2. Silver Layer (Transformation & Feature Engineering)
         Implemented KQL scripts to clean telemetry and perform complex feature engineering.
@@ -33,3 +33,5 @@ Visualization & Reporting:
 Geospatial Analysis: Visualised pollution hotspots using latitude and longitude markers on a map visual.
 Gauge Visuals: Built real-time indicators to track current pollutant averages against minimum, maximum, and target thresholds.
 Automated Refresh: Configured the semantic model to refresh daily at 14:00, following the completion of the ETL pipeline at 11:30.
+
+
