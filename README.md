@@ -5,7 +5,7 @@ Project Overview:
         by integrating with the Open AQ API, the system tracks hazardous pollutants—specifically PM2.5 and PM10—to provide actionable insights for urban                   health and environmental policy
 -------------------------------------------------------------------------------------
 Technical Stack:
-         Platform: Microsoft Fabric (Real-Time Intelligence)
+         Platform: Microsoft Fabric (Real-Time Intelligence) 
          Ingestion: PySpark (Notebooks), Eventstreams (Kafka Protocol)
          Database: Eventhouse (KQL Database / Kusto Query Language)
          Orchestration: Fabric Data Pipelines (Automated daily scheduling)
